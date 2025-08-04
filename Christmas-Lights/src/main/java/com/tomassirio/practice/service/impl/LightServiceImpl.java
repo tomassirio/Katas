@@ -25,7 +25,15 @@ public class LightServiceImpl implements LightService {
 
     @Override
     public void turnOff(Coordinate from, Coordinate to, LightMatrix lightMatrix) {
+        // Ensure coordinates are within bounds
+        Coordinate boundedFrom = boundFromCoordinate(from);
+        Coordinate boundedTo = boundToCoordinate(to, lightMatrix.getMatrix().length);
 
+        for (int i = boundedFrom.x(); i <= boundedTo.x(); i++) {
+            for (int j = boundedFrom.y(); j <= boundedTo.y(); j++) {
+                lightMatrix.getMatrix()[i][j] = Boolean.FALSE;
+            }
+        }
     }
 
     @Override
