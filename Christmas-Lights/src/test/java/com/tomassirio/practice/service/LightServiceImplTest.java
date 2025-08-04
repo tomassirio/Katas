@@ -66,4 +66,31 @@ public class LightServiceImplTest {
             row -> Arrays.stream(row).forEach(light -> assertThat(light).isFalse())
         );
     }
+
+    @Test
+    public void test_toggle() {
+        // Given
+        LightMatrix lightMatrix = new LightMatrix(5, 5);
+        Coordinate from = new Coordinate(0, 0);
+        Coordinate to = new Coordinate(2, 2);
+        lightService.turnOn(from, to, lightMatrix);
+
+        // When
+        Coordinate toToggle = new Coordinate(5, 5);
+        lightService.toggle(from, toToggle, lightMatrix);
+
+        // Then
+        for (int i = from.x(); i <= to.x(); i ++) {
+            for (int j = from.y(); j <= to.y(); j ++) {
+                assertThat(lightMatrix.getMatrix()[i][j]).isFalse();
+            }
+        }
+
+        for (int i = to.x() + 1; i < lightMatrix.getMatrix().length; i++) {
+            for (int j = to.y() + 1; j < lightMatrix.getMatrix()[0].length; j++) {
+                assertThat(lightMatrix.getMatrix()[i][j]).isTrue();
+            }
+        }
+
+    }
 }
