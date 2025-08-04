@@ -4,4 +4,6 @@ import com.tomassirio.practice.model.LightMatrix;
 
 public interface MatrixOperator {
     Integer countLights(LightMatrix lightMatrix, Boolean turnedOn);
+
+    Integer calculateTotalBrightness(LightMatrix lightMatrix);
 }
