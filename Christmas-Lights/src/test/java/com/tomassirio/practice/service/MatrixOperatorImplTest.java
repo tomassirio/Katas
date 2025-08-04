@@ -23,7 +23,7 @@ public class MatrixOperatorImplTest {
         lightMatrix.setMatrix(lights);
 
         // When
-        Integer turnedOn = matrixOperator.countTurnedOn(lightMatrix);
+        Integer turnedOn = matrixOperator.countLights(lightMatrix, Boolean.TRUE);
 
         assertThat(turnedOn).isEqualTo(5);
     }

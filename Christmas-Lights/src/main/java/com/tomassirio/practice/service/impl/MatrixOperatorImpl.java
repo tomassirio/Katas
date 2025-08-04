@@ -7,10 +7,10 @@ import java.util.Arrays;
 
 public class MatrixOperatorImpl implements MatrixOperator {
     @Override
-    public Integer countTurnedOn(LightMatrix lightMatrix) {
+    public Integer countLights(LightMatrix lightMatrix, Boolean turnedOn) {
         return Math.toIntExact(Arrays.stream(lightMatrix.getMatrix())
                 .flatMap(Arrays::stream)
-                .filter(Boolean.TRUE::equals)
+                .filter(turnedOn::equals)
                 .count());
     }
 }
