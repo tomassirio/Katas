@@ -1,5 +1,6 @@
 package com.tomassirio.practice.service.impl;
 
+import com.tomassirio.practice.model.Light;
 import com.tomassirio.practice.model.LightMatrix;
 import com.tomassirio.practice.service.MatrixOperator;
 
@@ -10,7 +11,16 @@ public class MatrixOperatorImpl implements MatrixOperator {
     public Integer countLights(LightMatrix lightMatrix, Boolean turnedOn) {
         return Math.toIntExact(Arrays.stream(lightMatrix.getMatrix())
                 .flatMap(Arrays::stream)
-                .filter(turnedOn::equals)
+                .filter(light -> light.isOn() == turnedOn)
                 .count());
+    }
+
+
+    @Override
+    public Integer calculateTotalBrightness(LightMatrix lightMatrix) {
+        return Math.toIntExact(Arrays.stream(lightMatrix.getMatrix())
+                .flatMap(Arrays::stream)
+                .mapToInt(Light::getBrightness)
+                .sum());
     }
 }

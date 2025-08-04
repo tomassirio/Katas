@@ -1,6 +1,7 @@
 package com.tomassirio.practice.service;
 
 import com.tomassirio.practice.model.Coordinate;
+import com.tomassirio.practice.model.DimmableLight;
 import com.tomassirio.practice.model.LightMatrix;
 import com.tomassirio.practice.service.impl.LightServiceImpl;
 import com.tomassirio.practice.service.impl.MatrixOperatorImpl;
@@ -26,7 +27,7 @@ public class IntegrationTest {
 
         // When
         lightService.turnOn(from, to, lightMatrix);
-        Integer turnedOn = matrixOperator.countLights(lightMatrix, Boolean.TRUE);
+        Integer turnedOn = matrixOperator.calculateTotalBrightness(lightMatrix);
 
         // Then
         assertThat(turnedOn).isEqualTo(expectedResult);
@@ -55,7 +56,7 @@ public class IntegrationTest {
 
         // When
         lightService.toggle(from, to, lightMatrix);
-        Integer turnedOn = matrixOperator.countLights(lightMatrix, Boolean.TRUE);
+        Integer turnedOn = matrixOperator.calculateTotalBrightness(lightMatrix);
 
         // Then
         assertThat(turnedOn).isEqualTo(expectedResult);
@@ -66,7 +67,7 @@ public class IntegrationTest {
         // Given
         LightMatrix lightMatrix = new LightMatrix(1_000, 1_000);
 
-        // When - Execute all instructions in the specified order
+        // When
         lightService.turnOn(new Coordinate(887, 9), new Coordinate(959, 629), lightMatrix);
         lightService.turnOn(new Coordinate(454, 398), new Coordinate(844, 448), lightMatrix);
         lightService.turnOff(new Coordinate(539, 243), new Coordinate(559, 965), lightMatrix);
@@ -77,8 +78,18 @@ public class IntegrationTest {
         lightService.toggle(new Coordinate(720, 196), new Coordinate(897, 994), lightMatrix);
         lightService.toggle(new Coordinate(831, 394), new Coordinate(904, 860), lightMatrix);
 
-        Integer turnedOn = matrixOperator.countLights(lightMatrix, Boolean.TRUE);
+        Integer turnedOn = matrixOperator.calculateTotalBrightness(lightMatrix);
         assertThat(turnedOn).isEqualTo(230022);
+    }
+
+    @Test
+    public void testTotalBrightnessForDimmableMatrix() {
+        LightMatrix lightMatrix = new LightMatrix(1_000, 1_000, DimmableLight::new);
+
+        lightService.toggle(new Coordinate(0, 0), new Coordinate(999, 999), lightMatrix);
+
+        Integer totalBrightness = matrixOperator.calculateTotalBrightness(lightMatrix);
+        assertThat(totalBrightness).isEqualTo(2_000_000);
     }
 
     public static Stream<Arguments> turnOnInstructions() {

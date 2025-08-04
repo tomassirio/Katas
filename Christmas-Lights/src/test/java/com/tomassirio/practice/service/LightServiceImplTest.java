@@ -24,10 +24,11 @@ public class LightServiceImplTest {
         lightService.turnOn(from, to, lightMatrix);
 
         // Then
-        assertThat(lightMatrix.getMatrix()[0][0]).isTrue();
+        assertThat(lightMatrix.getMatrix()[0][0].isOn()).isTrue();
 
         Arrays.stream(lightMatrix.getMatrix()).forEach(
-            row -> Arrays.stream(row).forEach(light -> assertThat(light).isTrue())
+            row -> Arrays.stream(row).forEach(light ->
+                assertThat(light.isOn()).isTrue())
         );
     }
 
@@ -42,11 +43,12 @@ public class LightServiceImplTest {
         lightService.turnOn(from, to, lightMatrix);
 
         // Then
-        assertThat(lightMatrix.getMatrix()[0][0]).isTrue();
-        assertThat(lightMatrix.getMatrix()[4][4]).isTrue();
+        assertThat(lightMatrix.getMatrix()[0][0].isOn()).isTrue();
+        assertThat(lightMatrix.getMatrix()[4][4].isOn()).isTrue();
 
         Arrays.stream(lightMatrix.getMatrix()).forEach(
-            row -> Arrays.stream(row).forEach(light -> assertThat(light).isTrue())
+            row -> Arrays.stream(row).forEach(light ->
+                assertThat(light.isOn()).isTrue())
         );
     }
 
@@ -63,7 +65,8 @@ public class LightServiceImplTest {
 
         // Then
         Arrays.stream(lightMatrix.getMatrix()).forEach(
-            row -> Arrays.stream(row).forEach(light -> assertThat(light).isFalse())
+            row -> Arrays.stream(row).forEach(light ->
+                assertThat(light.isOn()).isFalse())
         );
     }
 
@@ -82,13 +85,13 @@ public class LightServiceImplTest {
         // Then
         for (int i = from.x(); i <= to.x(); i ++) {
             for (int j = from.y(); j <= to.y(); j ++) {
-                assertThat(lightMatrix.getMatrix()[i][j]).isFalse();
+                assertThat(lightMatrix.getMatrix()[i][j].isOn()).isFalse();
             }
         }
 
         for (int i = to.x() + 1; i < lightMatrix.getMatrix().length; i++) {
             for (int j = to.y() + 1; j < lightMatrix.getMatrix()[0].length; j++) {
-                assertThat(lightMatrix.getMatrix()[i][j]).isTrue();
+                assertThat(lightMatrix.getMatrix()[i][j].isOn()).isTrue();
             }
         }
     }
