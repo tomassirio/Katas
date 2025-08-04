@@ -30,4 +30,23 @@ public class LightServiceImplTest {
             row -> Arrays.stream(row).forEach(light -> assertThat(light).isTrue())
         );
     }
+
+    @Test
+    public void test_turnOn_outOfBounds_wrapsWithoutException() {
+        // Given
+        LightMatrix lightMatrix = new LightMatrix(5, 5);
+        Coordinate from = new Coordinate(-1, -1);
+        Coordinate to = new Coordinate(6, 6);
+
+        // When
+        lightService.turnOn(from, to, lightMatrix);
+
+        // Then
+        assertThat(lightMatrix.getMatrix()[0][0]).isTrue();
+        assertThat(lightMatrix.getMatrix()[4][4]).isTrue();
+
+        Arrays.stream(lightMatrix.getMatrix()).forEach(
+            row -> Arrays.stream(row).forEach(light -> assertThat(light).isTrue())
+        );
+    }
 }

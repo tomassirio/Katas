@@ -11,9 +11,17 @@ import lombok.Setter;
 public class LightServiceImpl implements LightService {
     @Override
     public void turnOn(Coordinate from, Coordinate to, LightMatrix lightMatrix) {
-        for (int i = from.x(); i <= to.x(); i++) {
-            for (int j = from.y(); j <= to.y(); j++) {
-                lightMatrix.getMatrix()[i][j] = true;
+        // Ensure coordinates are within bounds
+        int fromX = Math.max(from.x(), 0);
+        int toX = Math.min(to.x(), lightMatrix.getMatrix().length - 1);
+
+        int fromY = Math.max(from.y(), 0);
+        int toY = Math.min(to.y(), lightMatrix.getMatrix()[0].length - 1);
+
+
+        for (int i = fromX; i <= toX; i++) {
+            for (int j = fromY; j <= toY; j++) {
+                lightMatrix.getMatrix()[i][j] = Boolean.TRUE;
             }
         }
     }
