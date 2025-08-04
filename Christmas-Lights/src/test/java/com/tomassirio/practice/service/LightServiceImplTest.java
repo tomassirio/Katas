@@ -91,6 +91,5 @@ public class LightServiceImplTest {
                 assertThat(lightMatrix.getMatrix()[i][j]).isTrue();
             }
         }
-
     }
 }
