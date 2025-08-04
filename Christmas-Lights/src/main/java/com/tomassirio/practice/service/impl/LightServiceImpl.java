@@ -9,18 +9,15 @@ import lombok.Setter;
 @Getter
 @Setter
 public class LightServiceImpl implements LightService {
+
     @Override
     public void turnOn(Coordinate from, Coordinate to, LightMatrix lightMatrix) {
         // Ensure coordinates are within bounds
-        int fromX = Math.max(from.x(), 0);
-        int toX = Math.min(to.x(), lightMatrix.getMatrix().length - 1);
+        Coordinate boundedFrom = boundFromCoordinate(from);
+        Coordinate boundedTo = boundToCoordinate(to, lightMatrix.getMatrix().length);
 
-        int fromY = Math.max(from.y(), 0);
-        int toY = Math.min(to.y(), lightMatrix.getMatrix()[0].length - 1);
-
-
-        for (int i = fromX; i <= toX; i++) {
-            for (int j = fromY; j <= toY; j++) {
+        for (int i = boundedFrom.x(); i <= boundedTo.x(); i++) {
+            for (int j = boundedFrom.y(); j <= boundedTo.y(); j++) {
                 lightMatrix.getMatrix()[i][j] = Boolean.TRUE;
             }
         }
@@ -34,5 +31,17 @@ public class LightServiceImpl implements LightService {
     @Override
     public void toggle(Coordinate from, Coordinate to, LightMatrix lightMatrix) {
 
+    }
+
+    private Coordinate boundFromCoordinate(Coordinate from) {
+        int fromX = Math.max(from.x(), 0);
+        int fromY = Math.max(from.y(), 0);
+        return new Coordinate(fromX, fromY);
+    }
+
+    private Coordinate boundToCoordinate(Coordinate to, int matrixLength) {
+        int toX = Math.min(to.x(), matrixLength - 1);
+        int toY = Math.min(to.y(), matrixLength - 1);
+        return new Coordinate(toX, toY);
     }
 }
