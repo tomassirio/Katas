@@ -1,0 +1,33 @@
+package com.tomassirio.practice.service;
+
+import com.tomassirio.practice.model.Coordinate;
+import com.tomassirio.practice.model.LightMatrix;
+import com.tomassirio.practice.service.impl.LightServiceImpl;
+import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+public class LightServiceImplTest {
+
+    private final LightService lightService = new LightServiceImpl();
+
+    @Test
+    public void test_turnOn() {
+        // Given
+        LightMatrix lightMatrix = new LightMatrix(5, 5);
+        Coordinate from = new Coordinate(0, 0);
+        Coordinate to = new Coordinate(4, 4);
+
+        // When
+        lightService.turnOn(from, to, lightMatrix);
+
+        // Then
+        assertThat(lightMatrix.getMatrix()[0][0]).isTrue();
+
+        Arrays.stream(lightMatrix.getMatrix()).forEach(
+            row -> Arrays.stream(row).forEach(light -> assertThat(light).isTrue())
+        );
+    }
+}
