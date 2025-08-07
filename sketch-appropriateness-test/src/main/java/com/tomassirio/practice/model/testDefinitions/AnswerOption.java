@@ -7,10 +7,18 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 // This entity defines a possible answer for a question.
 @Entity
 @Table(name = "answer_options")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class AnswerOption {
 
     @Id
@@ -23,5 +31,4 @@ public class AnswerOption {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id", nullable = false)
     private QuestionDefinition question;
-
 }

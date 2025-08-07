@@ -6,12 +6,19 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
 // This entity defines a reusable test category (e.g., "Education").
 @Entity
 @Table(name = "test_category_definitions")
+@Getter
+@Setter
+@NoArgsConstructor
 public class TestCategoryDefinition {
 
     // A unique identifier for the category.
@@ -26,4 +33,9 @@ public class TestCategoryDefinition {
     // is responsible for managing the relationship.
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<QuestionDefinition> questions;
+
+    public TestCategoryDefinition(String categoryId, String categoryName) {
+        this.categoryId = categoryId;
+        this.categoryName = categoryName;
+    }
 }

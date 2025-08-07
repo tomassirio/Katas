@@ -11,12 +11,18 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Table(name = "question_definitions")
+@Getter
+@Setter
+@NoArgsConstructor
 public class QuestionDefinition {
 
     @Id
@@ -39,4 +45,9 @@ public class QuestionDefinition {
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AnswerOption> options;
 
+    public QuestionDefinition(String questionText, String correctAnswerId, TestCategoryDefinition category) {
+        this.questionText = questionText;
+        this.correctAnswerId = correctAnswerId;
+        this.category = category;
+    }
 }
