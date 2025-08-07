@@ -35,8 +35,9 @@ public class CategoryStatus {
     private CategoryResult result;
 
     // Stores the user's answers for review. Using JSONB in PostgreSQL is ideal for this map.
+    // Change to JsonB when using Postgre
     @Convert(converter = UserAnswersConverter.class)
-    @Column(name = "user_answers", columnDefinition = "jsonb")
+    @Column(name = "user_answers", columnDefinition = "clob")
     private Map<String, String> userAnswers;
 }
 

@@ -16,7 +16,8 @@
             <column name="result" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="user_answers" type="JSONB"/>
+<!--            Change to JsonB when migrating to Postgre-->
+            <column name="user_answers" type="CLOB"/>
         </createTable>
         <addPrimaryKey tableName="user_category_statuses" columnNames="user_test_id, category_id"/>
         <addForeignKeyConstraint baseTableName="user_category_statuses"
