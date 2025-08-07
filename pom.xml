@@ -8,9 +8,9 @@
   <packaging>pom</packaging>
 
   <name>Katas</name>
-  <url>http://maven.apache.org</url>
   <modules>
     <module>Christmas-Lights</module>
+    <module>sketch-appropriateness-test</module>
   </modules>
 
   <properties>
