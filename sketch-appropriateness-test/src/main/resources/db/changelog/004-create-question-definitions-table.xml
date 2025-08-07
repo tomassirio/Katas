@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.27.xsd">
+
+    <changeSet id="create-question-definitions-table" author="tomas.sirio">
+        <createTable tableName="question_definitions">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="question_text" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="correct_answer_id" type="VARCHAR(255)"/>
+            <column name="category_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="question_definitions"
+                                 baseColumnNames="category_id"
+                                 referencedTableName="test_category_definitions"
+                                 referencedColumnNames="category_id"
+                                 constraintName="fk_question_category_id"/>
+    </changeSet>
+</databaseChangeLog>

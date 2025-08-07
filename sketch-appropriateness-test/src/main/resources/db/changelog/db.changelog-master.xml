@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.27.xsd">
+
+    <include file="classpath:db/changelog/001-create-user-appropriateness-tests-table.xml"/>
+    <include file="classpath:db/changelog/002-create-user-category-statuses-table.xml"/>
+    <include file="classpath:db/changelog/003-create-test-category-definitions-table.xml"/>
+    <include file="classpath:db/changelog/004-create-question-definitions-table.xml"/>
+    <include file="classpath:db/changelog/005-create-answer-options-table.xml"/>
+    <!-- Add more includes for future changes here -->
+
+</databaseChangeLog>

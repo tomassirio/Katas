@@ -8,18 +8,24 @@ import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Map;
 
+@Setter
+@Getter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "user_category_statuses")
 public class CategoryStatus {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+
+    // The composite primary key is defined by the CategoryStatusId class.
+    // The previous @Id and @GeneratedValue were conflicting and have been removed.
     @EmbeddedId
     private CategoryStatusId id;
 
@@ -33,3 +39,4 @@ public class CategoryStatus {
     @Column(name = "user_answers", columnDefinition = "jsonb")
     private Map<String, String> userAnswers;
 }
+

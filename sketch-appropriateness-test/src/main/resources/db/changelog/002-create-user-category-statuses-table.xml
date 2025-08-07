@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.27.xsd">
+
+    <changeSet id="create-user-category-statuses-table" author="tomas.sirio">
+        <createTable tableName="user_category_statuses">
+            <column name="user_test_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="category_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="result" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_answers" type="JSONB"/>
+        </createTable>
+        <addPrimaryKey tableName="user_category_statuses" columnNames="user_test_id, category_id"/>
+        <addForeignKeyConstraint baseTableName="user_category_statuses"
+                                 baseColumnNames="user_test_id"
+                                 referencedTableName="user_appropriateness_tests"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_user_test_id"/>
+    </changeSet>
+</databaseChangeLog>
