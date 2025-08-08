@@ -5,13 +5,19 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
+import lombok.AllArgsConstructor;
 
 import java.util.Map;
 
 @Converter(autoApply = false)
+@AllArgsConstructor
 public class UserAnswersConverter implements AttributeConverter<Map<String, String>, String> {
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper;
+
+    public UserAnswersConverter() {
+        this.objectMapper = new ObjectMapper();
+    }
 
     @Override
     public String convertToDatabaseColumn(Map<String, String> attribute) {
@@ -21,7 +27,7 @@ public class UserAnswersConverter implements AttributeConverter<Map<String, Stri
         try {
             return objectMapper.writeValueAsString(attribute);
         } catch (JsonProcessingException e) {
-            throw new IllegalArgumentException("Error converting map to JSON", e);
+            return null;
         }
     }
 
@@ -33,7 +39,7 @@ public class UserAnswersConverter implements AttributeConverter<Map<String, Stri
         try {
             return objectMapper.readValue(dbData, new TypeReference<>() {});
         } catch (JsonProcessingException e) {
-            throw new IllegalArgumentException("Error converting JSON to map", e);
+            return null;
         }
     }
 }

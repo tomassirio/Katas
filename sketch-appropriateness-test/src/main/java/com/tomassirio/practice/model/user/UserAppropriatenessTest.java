@@ -12,12 +12,16 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapKeyColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Map;
 import java.util.UUID;
 
 @Entity
 @Table(name = "user_appropriateness_tests")
+@Getter
+@Setter
 public class UserAppropriatenessTest {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
